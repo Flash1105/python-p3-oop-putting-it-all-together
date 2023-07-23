@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 from shoe import Shoe
-
 import io
 import sys
+import pytest
 
 class TestShoe:
     '''Shoe in shoe.py'''
@@ -19,9 +19,9 @@ class TestShoe:
         stan_smith = Shoe("Adidas", 9)
         captured_out = io.StringIO()
         sys.stdout = captured_out
-        stan_smith.size = "not an integer"
+        with pytest.raises(ValueError):
+            stan_smith.size = "not an integer"
         sys.stdout = sys.__stdout__
-        assert captured_out.getvalue() == "size must be an integer"
 
     def test_can_cobble(self):
         '''says that the shoe has been repaired.'''
@@ -30,13 +30,10 @@ class TestShoe:
         sys.stdout = captured_out
         stan_smith.cobble()
         sys.stdout = sys.__stdout__
-        assert(captured_out.getvalue() == "Your shoe is as good as new!\n")
-    
+        assert captured_out.getvalue() == "Your shoe is as good as new!\n"
+
     def test_cobble_makes_new(self):
         '''creates an attribute on the instance called 'condition' and set equal to 'New' after repair.'''
         stan_smith = Shoe("Adidas", 9)
         stan_smith.cobble()
-        assert(stan_smith.condition == "New")
-        
-        
-   
+        assert stan_smith.condition == "New"

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 from book import Book
-
 import io
 import sys
+import pytest
 
 class TestBook:
     '''Book in book.py'''
@@ -19,9 +19,9 @@ class TestBook:
         book = Book("And Then There Were None", 272)
         captured_out = io.StringIO()
         sys.stdout = captured_out
-        book.page_count = "not an integer"
+        with pytest.raises(ValueError):
+            book.page_count = "not an integer"
         sys.stdout = sys.__stdout__
-        assert captured_out.getvalue() == "page_count must be an integer"
 
     def test_can_turn_page(self):
         '''outputs "Flipping the page...wow, you read fast!" when method turn_page() is called'''
