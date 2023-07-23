@@ -19,9 +19,9 @@ class TestBook:
         book = Book("And Then There Were None", 272)
         captured_out = io.StringIO()
         sys.stdout = captured_out
-        book.page_count = "not an integer"
+        book.set_page_count ("not an integer")
         sys.stdout = sys.__stdout__
-        assert captured_out.getvalue() == "page_count must be an integer\n"
+        assert captured_out.getvalue() == "page_count must be an integer"
 
     def test_can_turn_page(self):
         '''outputs "Flipping the page...wow, you read fast!" when method turn_page() is called'''
