@@ -21,7 +21,7 @@ class TestShoe:
         sys.stdout = captured_out
         stan_smith.size = "not an integer"
         sys.stdout = sys.__stdout__
-        assert captured_out.getvalue() == "size must be an integer\n"
+        assert captured_out.getvalue() == "size must be an integer"
 
     def test_can_cobble(self):
         '''says that the shoe has been repaired.'''
